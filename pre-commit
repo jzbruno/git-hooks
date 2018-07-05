@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Main
+
+files="$(ls hooks/pre-commit-* | grep -v .*\.disabled$)"
+for f in $files; do
+    echo "Running $f"
+    ./$f
+    echo ""
+done
+
+exit 1
