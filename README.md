@@ -16,6 +16,7 @@ The *pre-commit* hook will run all other *pre-commit-\** hooks.
 - Git >= 2.9
 - Terraform (pre-commit-terraform)
 - Go (pre-commit-go)
+- ShellCheck (pre-commit-bash)
 
 ## Usage
 

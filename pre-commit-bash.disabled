@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Main
+
+# Validate bash *.sh files using https://github.com/koalaman/shellcheck
+
+files=$(git diff --cached --name-only --diff-filter=d | grep .*\.sh$)
+shellcheck -s bash -e SC2086,SC1111 $files
