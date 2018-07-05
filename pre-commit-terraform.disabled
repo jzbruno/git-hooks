@@ -9,7 +9,9 @@ set -euo pipefail
 # to get providers and modules. When using remote backends this requires 
 # backend provider credentials.
 
-files=$(git diff --cached --name-only --diff-filter=d | grep .*\.tf$)
+echo "Running pre-commit-terraform"
+
+files=$(git diff --cached --name-only --diff-filter=d | grep .*\.tf$ || true)
 
 for f in $files; do
     terraform fmt $f

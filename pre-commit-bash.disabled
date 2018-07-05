@@ -6,5 +6,11 @@ set -euo pipefail
 
 # Validate bash *.sh files using https://github.com/koalaman/shellcheck
 
-files=$(git diff --cached --name-only --diff-filter=d | grep .*\.sh$)
+echo "Running pre-commit-bash"
+
+files=$(git diff --cached --name-only --diff-filter=d | grep .*\.sh$ || true)
+if [[ -z "$files" ]]; then
+    exit 0
+fi
+
 shellcheck -s bash -e SC2086,SC1111 $files
