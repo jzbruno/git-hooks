@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Functions
+
+err() {
+    >&2 echo "${@}"
+}
+
+# Main
+
+files="$(git diff --cached --name-only --diff-filter=d | grep .*\.go$)"
+
+if [[ -z "$files" ]]; then
+    # The commit doesn't have any go file modifications.
+    exit 0
+fi
+
+# Format *.go files that are staged for commit excluding deleted files.
+# If any files need formatting we format them then re-add them.
+
+gofmt -l $files
+git add $files
+
+# Build, vet, and test all go packages excluding vendor packages.
+# It is easier to re-verify all packages than to try to handle only modified packages.
+
+packages="$(go list ./... | grep -vE "vendor")"
+
+if ! go build "$packages"; then
+    err "Error running go build on one or more packages. Fix any issues and re-commit."
+    exit 1
+fi
+
+if ! go vet "$packages"; then
+    err "Error running go vet on one or more packages. Fix any issues and re-commit."
+    exit 1
+fi
+
+if ! go test "$packages"; then
+    err "Error running go test on one or more packages. Fix any issues and re-commit."
+    exit 1
+fi
