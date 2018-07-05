@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Main
+
+# Validate *.yaml files using https://github.com/adrienverge/yamllint
+# Update the config.yamllint file to adjust linting rules.
+
+files=$(git diff --cached --name-only --diff-filter=d | grep .*\.yaml$)
+yamllint -c hooks/config.yamllint $files

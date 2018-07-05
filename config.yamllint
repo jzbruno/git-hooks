@@ -1,0 +1,12 @@
+---
+extends: default
+
+rules:
+  line-length:
+    ignore:
+      "*"
+    # level: warning
+    # max: 120
+  document-start:
+    ignore:
+      values.yaml

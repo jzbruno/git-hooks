@@ -17,6 +17,7 @@ The *pre-commit* hook will run all other *pre-commit-\** hooks.
 - Terraform (pre-commit-terraform)
 - Go (pre-commit-go)
 - ShellCheck (pre-commit-bash)
+- yamllint (pre-commit-yaml)
 
 ## Usage
 
