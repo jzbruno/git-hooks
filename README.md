@@ -14,6 +14,7 @@ The *pre-commit* hook will run all other *pre-commit-\** hooks.
 ## Requirements
 
 - Git >= 2.9
+- Terraform (pre-commit-terraform)
 
 ## Usage
 

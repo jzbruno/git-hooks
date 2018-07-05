@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Main
+
+# Format *.tf files that are staged for commit excluding deleted files.
+# We are not using terraform validate because it requires terraform init
+# to get providers and modules. When using remote backends this requires 
+# backend provider credentials.
+
+files=$(git diff --cached --name-only --diff-filter=d | grep .*\.tf$)
+
+for f in $files; do
+    terraform fmt $f
+    git add $f
+done
